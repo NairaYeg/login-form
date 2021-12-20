@@ -1,24 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import Form from "./components/Form/Form.jsx";
+import "./App.css";
 
 function App() {
+  const [user, setUser] = useState(null);
+  const [userName, setUserName] = useState(null);
+  const [password, setPassword] = useState(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const user = {
+      userName,
+      password,
+    };
+
+    setUser(user);
+
+    alert(JSON.stringify(user));
+  };
+
+  const handleSetUserName = (e) => {
+    const userName = e.target.value;
+    setUserName(userName);
+  };
+
+  const handleSetPass = (e) => {
+    const pass = e.target.value;
+    setPassword(pass);
+  };
+
+  useEffect(() => {
+    if (user) {
+      document.title = user.userName;
+    }
+  }, [user]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1>Login Form</h1>
+      <div class="container">
+        <Form
+          handleSubmit={handleSubmit}
+          handleSetUserName={handleSetUserName}
+          handleSetPass={handleSetPass}
+        />
+      </div>
+    </>
   );
 }
 
